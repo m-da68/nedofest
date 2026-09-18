@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ЧЕРНЫЙ ВТОРНИК — ПОСЛЕДНИЙ КОНЦЕРТ | Издательство АСТ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="noise"></div>
+<div class="noise" aria-hidden="true"></div>
 
-<!-- Верхняя служебная строка как на книге -->
+<!-- Верхняя служебная строка как на обложке АСТ -->
 <div class="top-bar">
   <div class="top-bar-inner">
     <span>ИЗДАТЕЛЬСТВО АСТ</span>
@@ -28,19 +28,20 @@
     <div class="book-frame-outer">
       <div class="book-frame-inner">
         
-        <!-- ФОТО -->
+        <!-- ФОТО СВЕРХУ -->
         <div class="photo-wrap">
           <div class="photo">
-            <img src="hero.jpg" alt="Рок концерт">
+            <img src="hero.jpg" alt="Чёрный Вторник — живой звук">
             <div class="photo-overlay"></div>
+            <div class="photo-vignette"></div>
           </div>
           <div class="photo-meta">
             <span>Илл. 1 — Живой звук, 2024. Фотоархив группы.</span>
-            <span>ТИРАЖ ОГРАНИЧЕН</span>
+            <span class="tirazh">ТИРАЖ ОГРАНИЧЕН — 1500 ЭКЗ.</span>
           </div>
         </div>
 
-        <!-- КОНТЕНТ -->
+        <!-- ОПИСАНИЕ + КНОПКА -->
         <div class="content">
           <div class="overline">ГРУППА «ЧЁРНЫЙ ВТОРНИК» ПРЕДСТАВЛЯЕТ:</div>
           
@@ -49,13 +50,13 @@
             ПОСЛЕДНИЙ<br>КОНЦЕРТ
           </h1>
 
-          <div class="divider">— ✦ —</div>
+          <div class="divider" aria-hidden="true">— ✦ —</div>
 
           <div class="subtitle">20 лет на сцене. Одна ночь. Живой звук без фонограммы.</div>
 
-          <div class="annotation">
+          <div class="annotation" id="annotation">
             <p>Впервые за десять лет «Чёрный Вторник» соберёт полный состав на одной сцене. Как в старых книгах издательства АСТ — с предисловием, кульминацией и эпилогом, только вместо глав — ваши любимые песни.</p>
-            <p>Это не просто концерт. Это последняя глава. Альбом «Молот», который вы заслушали до дыр, прозвучит целиком — от первой до последней ноты. Плюс все хиты, которые стали саундтреком целого поколения.</p>
+            <p class="p-second">Это не просто концерт. Это последняя глава. Альбом «Молот», который вы заслушали до дыр, прозвучит целиком — от первой до последней ноты. Плюс все хиты, которые стали саундтреком целого поколения.</p>
           </div>
 
           <div class="specs">
@@ -65,7 +66,7 @@
             </div>
             <div class="spec">
               <span class="spec-label">ВРЕМЯ</span>
-              <span class="spec-value">19:00 / СБОР ГОСТЕЙ 18:00</span>
+              <span class="spec-value">19:00 / СБОР 18:00</span>
             </div>
             <div class="spec">
               <span class="spec-label">МЕСТО</span>
@@ -84,8 +85,8 @@
               <div class="price-note">осталось 214 экз. / 1500 мест</div>
             </div>
 
-            <button class="buy-btn" id="buyBtn">
-              <span class="stamp-border"></span>
+            <button class="buy-btn" id="buyBtn" type="button">
+              <span class="stamp-border" aria-hidden="true"></span>
               <span class="buy-btn-text">КУПИТЬ БИЛЕТ</span>
               <span class="buy-btn-sub">В КАССЕ ИЗДАТЕЛЬСТВА</span>
             </button>
@@ -94,41 +95,39 @@
           </div>
         </div>
 
-      </div>
-    </div>
-
-    <!-- Нижний колонтитул как в книге -->
-    <div class="colophon">
-      <div class="colophon-left">
-        <div class="ast-logo">АСТ</div>
-        <div class="colophon-text">
-          <p><strong>КОНЦЕРТНОЕ ИЗДАНИЕ</strong><br>
-          Организатор: ИП Воронцов А.В.<br>
-          ОГРНИП 324774600123456<br>
-          Адрес площадки: г. Москва, ул. Пресненский Вал, д. 6, стр. 1<br>
-          Клуб «16 Тонн»</p>
+        <!-- КОНТАКТЫ СНИЗУ — как выходные данные книги -->
+        <div class="colophon">
+          <div class="colophon-left">
+            <div class="ast-logo" aria-hidden="true">АСТ</div>
+            <div class="colophon-text">
+              <p><strong>КОНЦЕРТНОЕ ИЗДАНИЕ</strong><br>
+              Организатор: ИП Воронцов А.В.<br>
+              ОГРНИП 324774600123456<br>
+              Адрес площадки: г. Москва, ул. Пресненский Вал, д. 6, стр. 1<br>
+              Клуб «16 Тонн»</p>
+            </div>
+          </div>
+          <div class="colophon-right">
+            <p>ISBN 978-5-17-167432-1 (концерт)<br>
+            УДК 785.16 &nbsp; ББК 85.364<br><br>
+            По вопросам аккредитации и оптовых закупок:<br>
+            <a href="tel:+74951234567">+7 (495) 123-45-67</a><br>
+            <a href="mailto:rock@ast-concert.ru">rock@ast-concert.ru</a><br>
+            @blacktuesday.rock</p>
+            <p class="print">Отпечатано в типографии «Живой Звук». Москва. 2026. Тираж 1500 экз.</p>
+          </div>
         </div>
-      </div>
-      <div class="colophon-right">
-        <p>ISBN 978-5-17-167432-1 (концерт)<br>
-        УДК 785.16<br>
-        ББК 85.364<br><br>
-        По вопросам аккредитации и оптовых закупок билетов:<br>
-        <a href="tel:+74951234567">+7 (495) 123-45-67</a><br>
-        <a href="mailto:rock@ast-concert.ru">rock@ast-concert.ru</a><br>
-        @blacktuesday.rock</p>
-        <p class="print">Отпечатано в типографии «Живой Звук».<br>Москва. 2026. Тираж 1500 экз.</p>
+
       </div>
     </div>
-
   </div>
 </main>
 
 <!-- Модалка покупки -->
-<div class="modal" id="modal">
+<div class="modal" id="modal" aria-hidden="true">
   <div class="modal-overlay" id="modalOverlay"></div>
-  <div class="modal-window">
-    <button class="modal-close" id="modalClose">✕</button>
+  <div class="modal-window" role="dialog" aria-modal="true" aria-label="Оформление билета">
+    <button class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
     <div class="modal-header">
       <div class="modal-overline">ИЗДАТЕЛЬСТВО АСТ • КАССА</div>
       <h2>ОФОРМЛЕНИЕ БИЛЕТА</h2>
