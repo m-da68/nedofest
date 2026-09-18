@@ -1,16 +1,103 @@
+/* =========================================================
+   ПАЛИТРА — СВЕТЛАЯ (по умолчанию)
+   ========================================================= */
 :root{
+  color-scheme: light;
+
+  /* бумага и чернила */
   --paper: #F5F0E1;
-  --paper-dark: #EAE1CB;
   --paper-mid: #F9F5E9;
+  --paper-dark: #EAE1CB;
   --ink: #121212;
   --ink-light: #5A5248;
-  --red: #C1272D;
-  --red-dark: #9E1F24;
+
+  /* цветные блоки АСТ */
+  --red: #C1272D;          /* заливка красного блока */
+  --on-red: #F7F1E1;       /* текст на красном блоке */
+  --gold: #E0A92B;         /* золотой блок */
+  --on-gold: #17130F;      /* текст на золоте */
+  --on-ink: var(--paper);  /* текст на чёрном блоке */
+  --accent: #C1272D;       /* акцентный текст прямо по бумаге */
+
+  /* служебное */
   --border: #121212;
+  --hairline: rgba(18,18,18,0.16);
+  --red-soft: rgba(193,39,45,0.09);
+  --input-bg: #FFFCF3;
+  --scrim: rgba(18,18,18,0.72);
+  --book-shadow: rgba(0,0,0,0.12);
+  --block-shadow: rgba(18,18,18,0.22);
+  --frame-glow: rgba(0,0,0,0.08);
+  --photo-filter: contrast(1.12) saturate(0.85) sepia(0.06);
+  --noise-opacity: 0.06;
+}
+
+/* =========================================================
+   ТЁМНАЯ ТЕМА
+   1) автоматически по системной настройке (prefers-color-scheme)
+   2) принудительно через data-theme на <html>
+   ========================================================= */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+
+    --paper: #1C1915;
+    --paper-mid: #231E19;
+    --paper-dark: #100E0B;
+    --ink: #F0E8D8;
+    --ink-light: #A99C88;
+
+    --red: #B0332C;
+    --on-red: #F7EFE0;
+    --gold: #C9962E;
+    --on-gold: #17120A;
+    --on-ink: var(--paper);
+    --accent: #E8705F;
+
+    --border: #6E6455;
+    --hairline: rgba(240,232,216,0.18);
+    --red-soft: rgba(232,112,95,0.16);
+    --input-bg: #292319;
+    --scrim: rgba(0,0,0,0.76);
+    --book-shadow: rgba(0,0,0,0.5);
+    --block-shadow: rgba(0,0,0,0.55);
+    --frame-glow: rgba(240,232,216,0.05);
+    --photo-filter: brightness(0.82) contrast(1.06) saturate(0.82) sepia(0.05);
+    --noise-opacity: 0.085;
+  }
+}
+
+:root[data-theme="dark"]{
+  color-scheme: dark;
+
+  --paper: #1C1915;
+  --paper-mid: #231E19;
+  --paper-dark: #100E0B;
+  --ink: #F0E8D8;
+  --ink-light: #A99C88;
+
+  --red: #B0332C;
+  --on-red: #F7EFE0;
+  --gold: #C9962E;
+  --on-gold: #17120A;
+  --on-ink: var(--paper);
+  --accent: #E8705F;
+
+  --border: #6E6455;
+  --hairline: rgba(240,232,216,0.18);
+  --red-soft: rgba(232,112,95,0.16);
+  --input-bg: #292319;
+  --scrim: rgba(0,0,0,0.76);
+  --book-shadow: rgba(0,0,0,0.5);
+  --block-shadow: rgba(0,0,0,0.55);
+  --frame-glow: rgba(240,232,216,0.05);
+  --photo-filter: brightness(0.82) contrast(1.06) saturate(0.82) sepia(0.05);
+  --noise-opacity: 0.085;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;min-width:0}
 html{height:100%;overflow:hidden}
+html{background: var(--paper-dark);}
 body{
   height:100vh;
   height:100dvh;
@@ -23,16 +110,35 @@ body{
   flex-direction:column;
   -webkit-font-smoothing: antialiased;
   overscroll-behavior:none;
+  transition: background-color .35s ease, color .35s ease;
 }
 
 .noise{
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:0.06;
+  opacity: var(--noise-opacity);
   z-index:9999;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
+
+/* =========================================================
+   ЦВЕТНЫЕ БЛОКИ ПОД НАДПИСЯМИ — как на обложках АСТ
+   ========================================================= */
+.blk{
+  display:inline-block;
+  padding: 0.16em 0.44em 0.20em;
+  line-height:1;
+  background: var(--ink);
+  color: var(--on-ink);
+  box-shadow: 2px 2px 0 var(--block-shadow);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-color .35s ease, color .35s ease, box-shadow .35s ease;
+}
+.blk-red{ background: var(--red);  color: var(--on-red); }
+.blk-gold{ background: var(--gold); color: var(--on-gold); }
+.blk-ink{ background: var(--ink);  color: var(--on-ink); }
 
 /* TOP BAR — как наборная строка на обложке */
 .top-bar{
@@ -46,6 +152,7 @@ body{
   padding: 6px 0 6px;
   z-index:5;
   line-height:1;
+  transition: background-color .35s ease, border-color .35s ease;
 }
 .top-bar-inner{
   max-width:100%;
@@ -56,10 +163,37 @@ body{
   justify-content:center;
   align-items:center;
   flex-wrap:wrap;
-  opacity:0.8;
+  opacity:0.9;
   text-align:center;
 }
+.top-bar-inner .blk{
+  padding:0.30em 0.55em 0.34em;
+  box-shadow:1.5px 1.5px 0 var(--block-shadow);
+}
 .dot{opacity:0.4}
+
+/* переключатель темы */
+.theme-toggle{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background: var(--paper-mid);
+  color: var(--ink);
+  border:1px solid var(--border);
+  border-radius:1px;
+  font-family:'PT Sans', sans-serif;
+  font-size:inherit;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  padding:0.34em 0.6em;
+  line-height:1;
+  cursor:pointer;
+  white-space:nowrap;
+  transition: color .2s ease, border-color .2s ease, background-color .35s ease;
+}
+.theme-toggle:hover{ color: var(--accent); border-color: var(--accent); }
+.theme-toggle:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+.theme-toggle .tg-icon{ font-size:1.25em; line-height:1; }
 
 /* WRAPPER — на всё окно */
 .wrapper{
@@ -74,6 +208,7 @@ body{
   padding: 0.8vh 0.8vw;
   overflow:hidden;
   background: var(--paper-dark);
+  transition: background-color .35s ease;
 }
 
 /* BOOK — сама обложка на всё окно */
@@ -85,10 +220,11 @@ body{
   width:100%;
   height:100%;
   background: var(--paper);
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.08) inset, 0 8px 32px rgba(0,0,0,0.12);
+  box-shadow: 0 0 0 1px var(--frame-glow) inset, 0 8px 32px var(--book-shadow);
   overflow:hidden;
   position:relative;
   padding:4px;
+  transition: background-color .35s ease, box-shadow .35s ease;
 }
 
 .book-frame-outer{
@@ -101,6 +237,7 @@ body{
   padding: 4px;
   overflow:hidden;
   background: var(--paper);
+  transition: background-color .35s ease, border-color .35s ease;
 }
 .book-frame-inner{
   flex:1;
@@ -110,6 +247,7 @@ body{
   border: 1px solid var(--border);
   overflow:hidden;
   position:relative;
+  transition: border-color .35s ease;
 }
 /* декоративные уголки как на книгах АСТ */
 .book-frame-inner::before,
@@ -142,6 +280,7 @@ body{
   border-bottom:1.5px solid var(--border);
   background:#000;
   overflow:hidden;
+  transition: border-color .35s ease;
 }
 .photo{
   flex:1;
@@ -156,7 +295,8 @@ body{
   object-fit:cover;
   object-position:center 38%;
   display:block;
-  filter: contrast(1.12) saturate(0.85) sepia(0.06);
+  filter: var(--photo-filter);
+  transition: filter .35s ease;
 }
 .photo-overlay{
   position:absolute;
@@ -189,11 +329,18 @@ body{
   line-height:1.2;
   white-space:nowrap;
   overflow:hidden;
+  transition: background-color .35s ease, border-color .35s ease;
 }
 .photo-meta span{overflow:hidden;text-overflow:ellipsis}
 .photo-meta span:last-child{flex-shrink:0}
+.photo-meta .tirazh.blk{
+  padding:0.30em 0.6em;
+  box-shadow:1.5px 1.5px 0 var(--block-shadow);
+  letter-spacing:0.13em;
+}
 
-/* CONTENT — описание + кнопка, занимает всё оставшееся место, без скролла */
+/* CONTENT — описание + кнопка. Если не влезает — скроллится,
+   блок с билетом приклеен к низу и всегда на виду */
 .content{
   flex:1;
   min-height:0;
@@ -204,39 +351,60 @@ body{
   gap: clamp(4px, 0.9vh, 10px);
   padding: clamp(8px, 1.6vh, 22px) clamp(14px, 2.6vw, 42px) clamp(6px, 1vh, 12px);
   text-align:center;
-  overflow:hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color: var(--border) transparent;
 }
+.content::-webkit-scrollbar{width:5px;display:block}
+.content::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.content::-webkit-scrollbar-track{background:transparent}
 
 .overline{
   flex:0 0 auto;
   font-family:'PT Sans', sans-serif;
   font-size:clamp(7.5px, 1.05vh, 10.5px);
-  letter-spacing:0.28em;
+  letter-spacing:0.24em;
   text-transform:uppercase;
   color: var(--ink-light);
   font-weight:700;
   line-height:1;
+}
+.overline .blk{
+  padding:0.42em 0.7em 0.48em;
+  box-shadow:2px 2px 0 var(--block-shadow);
 }
 
 .title{
   flex:0 0 auto;
   font-family:'Cormorant Garamond', 'EB Garamond', serif;
   font-weight:700;
-  line-height:0.88;
+  line-height:0.95;
   letter-spacing:-0.02em;
   text-transform:uppercase;
-  font-size: clamp(26px, 5.2vh, 62px);
+  font-size: clamp(24px, 4.8vh, 56px);
   margin:0;
 }
 .title-small{
   display:block;
-  font-size:0.28em;
-  letter-spacing:0.38em;
+  font-size:0.26em;
+  letter-spacing:0.34em;
   font-weight:400;
-  margin-bottom:4px;
+  margin-bottom:0.5em;
   font-family:'PT Sans', sans-serif;
   color: var(--ink-light);
   line-height:1;
+}
+/* весь заголовок — одним цветным блоком, как на обложке */
+.title-box{
+  display:inline-block;
+  text-align:center;
+  line-height:0.94;
+  padding: 0.10em 0.26em 0.16em;
+  box-shadow: 4px 4px 0 var(--block-shadow);
+  transform: rotate(-0.5deg);
 }
 
 .divider{
@@ -258,7 +426,7 @@ body{
 }
 
 .annotation{
-  flex:0 1 auto;
+  flex:0 0 auto;   /* не сжимаем и не обрезаем строки — пусть описание скроллится */
   min-height:0;
   overflow:hidden;
   text-align:left;
@@ -289,6 +457,7 @@ body{
   line-height:0.8;
   padding:4px 7px 0 0;
   font-weight:700;
+  color: var(--red);
 }
 
 /* SPECS — сетка */
@@ -303,23 +472,30 @@ body{
   max-width:600px;
   text-align:left;
   overflow:hidden;
+  transition: background-color .35s ease, border-color .35s ease;
 }
 .spec{
   background: var(--paper);
   padding: clamp(6px, 0.9vh, 10px) clamp(8px, 1vw, 14px);
   display:flex;
   flex-direction:column;
-  gap:2px;
+  gap:4px;
   min-width:0;
+  transition: background-color .35s ease;
 }
 .spec-label{
+  align-self:flex-start;
   font-family:'PT Sans', sans-serif;
   font-size: clamp(7px, 0.9vh, 9px);
   letter-spacing:0.16em;
   text-transform:uppercase;
-  opacity:0.6;
+  opacity:1;
   font-weight:700;
   line-height:1;
+}
+.spec-label.blk{
+  padding:0.28em 0.5em 0.32em;
+  box-shadow:1.5px 1.5px 0 var(--block-shadow);
 }
 .spec-value{
   font-family:'PT Sans', sans-serif;
@@ -332,17 +508,31 @@ body{
   text-overflow:ellipsis;
 }
 
-/* TICKET BLOCK */
+/* TICKET BLOCK — приклеен к низу, всегда виден */
 .ticket-block{
+  position:sticky;
+  bottom:0;
+  z-index:3;
   flex:0 0 auto;
   width:100%;
   max-width:600px;
+  background: var(--paper);
   border-top:1px solid var(--border);
   padding-top: clamp(6px, 1vh, 14px);
+  padding-bottom: 2px;
   display:flex;
   flex-direction:column;
   align-items:center;
   gap: clamp(4px, 0.8vh, 10px);
+  transition: background-color .35s ease, border-color .35s ease;
+}
+.ticket-block::before{
+  content:'';
+  position:absolute;
+  left:0; right:0; top:-16px;
+  height:16px;
+  background: linear-gradient(to bottom, transparent, var(--paper));
+  pointer-events:none;
 }
 
 .price-tag{
@@ -363,15 +553,19 @@ body{
   line-height:1;
   margin: 3px 0 2px;
 }
+.price .blk{
+  padding:0.10em 0.34em 0.18em;
+  box-shadow:3px 3px 0 var(--block-shadow);
+}
 .price-note{
   font-family:'PT Sans', sans-serif;
   font-size:clamp(9px, 1vh, 11px);
   letter-spacing:0.05em;
-  color: var(--red);
+  color: var(--accent);
   font-weight:700;
 }
 
-/* BUY BUTTON - штамп как на книгах */
+/* BUY BUTTON — заливка цветным блоком, как штамп на обложке */
 .buy-btn{
   position:relative;
   background: transparent;
@@ -385,24 +579,27 @@ body{
 }
 .buy-btn:hover{
   transform: rotate(0deg) scale(1.02);
+  filter: brightness(1.07);
 }
 .buy-btn:active{
   transform: rotate(0deg) scale(0.97);
 }
+.buy-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:4px; }
 .stamp-border{
   position:absolute;
   inset:0;
-  border:2.5px solid var(--red);
+  border:2.5px solid var(--border);
   border-radius:2px;
-  background: rgba(193,39,45,0.06);
-  box-shadow: 0 0 0 1px var(--red) inset;
+  background: var(--red);
+  box-shadow: 4px 4px 0 var(--block-shadow);
+  transition: background-color .35s ease, border-color .35s ease;
 }
 .stamp-border::before{
   content:'';
   position:absolute;
   inset:3px;
-  border:1px dashed var(--red);
-  opacity:0.55;
+  border:1px dashed var(--on-red);
+  opacity:0.45;
   border-radius:1px;
 }
 .buy-btn-text{
@@ -412,7 +609,7 @@ body{
   font-weight:800;
   font-size: clamp(14px, 2vh, 20px);
   letter-spacing:0.11em;
-  color: var(--red);
+  color: var(--on-red);
   line-height:1;
 }
 .buy-btn-sub{
@@ -422,9 +619,9 @@ body{
   font-size:clamp(7px, 0.95vh, 9px);
   letter-spacing:0.2em;
   text-transform:uppercase;
-  color: var(--red);
+  color: var(--on-red);
   margin-top:3px;
-  opacity:0.9;
+  opacity:0.85;
   line-height:1;
 }
 
@@ -435,6 +632,50 @@ body{
   opacity:0.58;
   max-width:380px;
   line-height:1.35;
+}
+
+/* плавающая кнопка-дублёр — появляется, если основная уехала за экран */
+.cta-float{
+  position:fixed;
+  right: clamp(10px, 2vw, 24px);
+  bottom: clamp(10px, 2vh, 24px);
+  z-index:90;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  background: var(--red);
+  color: var(--on-red);
+  border:2px solid var(--border);
+  padding:9px 16px 8px;
+  font-family:'PT Sans', sans-serif;
+  font-weight:800;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  font-size:clamp(10px, 1.5vh, 13px);
+  line-height:1;
+  cursor:pointer;
+  box-shadow: 4px 4px 0 var(--block-shadow);
+  transform: translateY(150%) rotate(-1deg);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition: transform .34s cubic-bezier(.34,1.4,.64,1), opacity .22s ease, visibility .22s;
+  touch-action:manipulation;
+}
+.cta-float.is-visible{
+  transform: translateY(0) rotate(-1deg);
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.cta-float:hover{ transform: translateY(-2px) rotate(0deg); filter: brightness(1.07); }
+.cta-float:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+.cta-float-price{
+  font-weight:400;
+  font-size:0.8em;
+  letter-spacing:0.06em;
+  opacity:0.85;
 }
 
 /* COLOPHON — контакты как выходные данные книги */
@@ -452,6 +693,7 @@ body{
   color: var(--ink-light);
   text-align:left;
   overflow:hidden;
+  transition: background-color .35s ease, border-color .35s ease;
 }
 .colophon-left{
   display:flex;
@@ -462,7 +704,7 @@ body{
   width: clamp(32px, 3.5vh, 42px);
   height: clamp(32px, 3.5vh, 42px);
   background: var(--red);
-  color:white;
+  color: var(--on-red);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -471,16 +713,23 @@ body{
   letter-spacing:0.06em;
   flex-shrink:0;
   line-height:1;
+  transition: background-color .35s ease, color .35s ease;
 }
 .colophon-text{ min-width:0; overflow:hidden }
 .colophon-text p{ overflow:hidden; text-overflow:ellipsis }
+.colophon-text strong.blk{
+  padding:0.24em 0.5em 0.28em;
+  font-weight:700;
+  letter-spacing:0.08em;
+  box-shadow:1.5px 1.5px 0 var(--block-shadow);
+}
 .colophon-right{ min-width:0; overflow:hidden }
 .colophon-right a{
   color: var(--ink);
   text-decoration:none;
   border-bottom:1px solid currentColor;
 }
-.colophon-right a:hover{color:var(--red)}
+.colophon-right a:hover{color:var(--accent)}
 .print{
   margin-top:6px;
   font-style:italic;
@@ -501,7 +750,7 @@ body{
 .modal-overlay{
   position:absolute;
   inset:0;
-  background: rgba(18,18,18,0.72);
+  background: var(--scrim);
   backdrop-filter: blur(4px);
 }
 .modal-window{
@@ -513,8 +762,9 @@ body{
   max-height: min(90dvh, 720px);
   overflow:auto;
   padding:22px 22px 18px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  box-shadow: 0 20px 60px var(--book-shadow);
   animation: bookIn 0.32s ease;
+  color: var(--ink);
 }
 @keyframes bookIn{
   from{transform: translateY(14px) scale(0.98); opacity:0}
@@ -526,6 +776,7 @@ body{
   right:10px;
   background:none;
   border:none;
+  color: var(--ink);
   font-size:18px;
   cursor:pointer;
   width:32px;
@@ -584,10 +835,11 @@ body{
   text-transform:uppercase;
   font-weight:700;
 }
-.form-row label span{color:var(--red)}
+.form-row label span{color:var(--accent)}
 .form-row input, .form-row select{
   border:1.5px solid var(--border);
-  background:#fffcf3;
+  background: var(--input-bg);
+  color: var(--ink);
   padding:11px 13px;
   font-family:'PT Serif', serif;
   font-size:14px;
@@ -595,7 +847,7 @@ body{
   width:100%;
 }
 .form-row input:focus, .form-row select:focus{
-  border-color: var(--red);
+  border-color: var(--accent);
 }
 .form-total{
   display:flex;
@@ -628,6 +880,7 @@ body{
 }
 .submit-btn:hover{
   background: var(--red);
+  color: var(--on-red);
   border-color: var(--red);
 }
 .form-footnote{
@@ -648,7 +901,7 @@ body{
 .success-stamp{
   display:inline-block;
   border:2.5px solid var(--red);
-  color:var(--red);
+  color:var(--accent);
   font-family:'PT Sans', sans-serif;
   font-weight:800;
   letter-spacing:0.16em;
@@ -677,7 +930,7 @@ body{
   opacity:0.6 !important;
 }
 
-/* ========== АДАПТИВНОСТЬ БЕЗ СКРОЛЛА ========== */
+/* ========== АДАПТИВНОСТЬ ========== */
 
 /* Узкие экраны — телефон портрет */
 @media (max-width: 640px){
@@ -692,14 +945,15 @@ body{
   .spec{padding:7px 10px}
   .colophon{grid-template-columns:1fr;gap:8px;padding:8px 10px}
   .colophon-left{ gap:8px }
-  .colophon-right{ border-top:1px dashed rgba(0,0,0,0.15); padding-top:6px }
+  .colophon-right{ border-top:1px dashed var(--hairline); padding-top:6px }
   .print{display:none}
   .top-bar-inner{font-size:8.5px;gap:6px;padding:0 10px}
+  .cta-float{right:10px;bottom:10px}
 }
 
 /* Очень узкие — 360 и меньше */
 @media (max-width: 380px){
-  .title{font-size: clamp(24px, 5.8vw, 30px);}
+  .title{font-size: clamp(22px, 5.4vw, 30px);}
   .subtitle{font-size: clamp(11px, 3.4vw, 13px);}
   .annotation{font-size:11px; line-height:1.45}
   .spec-value{font-size:10px}
@@ -711,7 +965,7 @@ body{
   .top-bar{padding:4px 0}
   .photo-wrap{height: clamp(118px, 28vh, 260px);}
   .content{gap:5px;padding-top:8px}
-  .title{font-size: clamp(24px, 4.6vh, 48px);}
+  .title{font-size: clamp(22px, 4.4vh, 46px);}
   .subtitle{font-size: clamp(10px, 1.6vh, 15px);}
   .annotation{font-size: clamp(9.5px, 1.35vh, 13px); line-height:1.45}
   .annotation p:first-child{-webkit-line-clamp:3}
@@ -735,14 +989,24 @@ body{
 }
 
 @media (max-height: 580px){
-  .photo-wrap{height: 118px;}
+  .photo-wrap{height: 110px; min-height:90px}
   .annotation{display:none !important}
   .subtitle{font-size:11px}
   .title{font-size:22px}
-  .top-bar{display:none}
+  .top-bar{padding:2px 0}
+  .top-bar-inner{font-size:7.5px;gap:5px}
   .colophon{padding:5px 8px;gap:6px}
   .price-label{font-size:8px}
   .price{font-size:18px}
+  .buy-btn{padding:8px 20px 6px}
+}
+
+@media (max-height: 500px){
+  .photo-wrap{height: 92px; min-height:74px}
+  .subtitle{display:none}
+  .divider{display:none}
+  .colophon{grid-template-columns:1fr 1fr}
+  .ast-logo{width:26px;height:26px}
 }
 
 /* Высокие экраны — даём больше воздуха */
@@ -752,7 +1016,7 @@ body{
   .book-frame-outer{padding:6px}
   .photo-wrap{height: 380px}
   .content{padding: 20px 48px 12px;gap:12px}
-  .title{font-size: 62px}
+  .title{font-size: 56px}
 }
 
 /* Широкие экраны — центрируем контент, но фон на всё окно */
@@ -770,9 +1034,9 @@ body{
   .photo img{object-position:center 30%}
 }
 
-/* Ландшафт на телефоне — фото слева, контент справа, но сохраняем требование сверху фотка -> делаем компактнее */
+/* Ландшафт на телефоне */
 @media (max-height: 500px) and (orientation: landscape){
-  .photo-wrap{height: 132px; flex:0 0 132px}
+  .photo-wrap{height: 120px; flex:0 0 120px}
   .photo-meta{padding:3px 8px;font-size:7px}
   .content{flex-direction:column;justify-content:center;gap:4px;padding:6px 16px}
   .title{font-size:22px}
@@ -795,6 +1059,12 @@ body{
   .ticket-form{gap:10px}
 }
 
-/* Убираем скроллбар у всего */
+/* Убираем скроллбар у всего, кроме описания */
 *::-webkit-scrollbar{display:none}
 *{scrollbar-width:none;-ms-overflow-style:none}
+.content{scrollbar-width:thin}
+
+/* Уважаем системную настройку «меньше движения» */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important}
+}
