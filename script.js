@@ -7,6 +7,10 @@ const success = document.getElementById('success');
 const closeSuccess = document.getElementById('closeSuccess');
 const qty = document.getElementById('qty');
 const totalPrice = document.getElementById('totalPrice');
+const content = document.getElementById('content');
+const ctaFloat = document.getElementById('ctaFloat');
+const themeBtn = document.getElementById('themeToggle');
+const themeLabel = document.getElementById('themeLabel');
 
 const prices = {
   "1 билет — 2 500 ₽": "2 500 ₽",
@@ -15,15 +19,65 @@ const prices = {
   "4 билета — 9 000 ₽ (-10%)": "9 000 ₽"
 };
 
+/* =========================================================
+   ТЕМА: АВТО (как в системе) → СВЕТЛАЯ → ТЁМНАЯ
+   Выбор запоминается в localStorage, по умолчанию — «АВТО»
+   ========================================================= */
+const THEMES = [
+  { id: 'auto',  icon: '◐', label: 'АВТО' },
+  { id: 'light', icon: '☀', label: 'СВЕТЛАЯ' },
+  { id: 'dark',  icon: '☾', label: 'ТЁМНАЯ' }
+];
+const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+
+function storedTheme(){
+  try { return localStorage.getItem('nf-theme') || 'auto'; } catch(e){ return 'auto'; }
+}
+let currentTheme = storedTheme();
+
+function applyTheme(id){
+  currentTheme = THEMES.some(t => t.id === id) ? id : 'auto';
+  const meta = THEMES.find(t => t.id === currentTheme);
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  try { localStorage.setItem('nf-theme', currentTheme); } catch(e){}
+
+  const effective = currentTheme === 'dark' || (currentTheme === 'auto' && darkMQ.matches) ? 'тёмная' : 'светлая';
+  themeLabel.textContent = meta.label;
+  themeBtn.querySelector('.tg-icon').textContent = meta.icon;
+  themeBtn.title = 'Тема: ' + meta.label + ' (сейчас ' + effective + '). Нажмите, чтобы переключить';
+  themeBtn.setAttribute('aria-label', themeBtn.title);
+}
+
+themeBtn.addEventListener('click', () => {
+  const i = THEMES.findIndex(t => t.id === currentTheme);
+  applyTheme(THEMES[(i + 1) % THEMES.length].id);
+});
+
+// если выбрано «АВТО» — мгновенно реагируем на смену системной темы
+if (darkMQ.addEventListener){
+  darkMQ.addEventListener('change', () => { if (currentTheme === 'auto') applyTheme('auto'); });
+} else if (darkMQ.addListener){
+  darkMQ.addListener(() => { if (currentTheme === 'auto') applyTheme('auto'); });
+}
+
+applyTheme(currentTheme);
+
+/* =========================================================
+   МОДАЛКА
+   ========================================================= */
 function openModal(){
   modal.classList.add('open');
-  document.body.style.overflow='hidden';
-  form.style.display='flex';
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  form.style.display = 'flex';
   success.classList.remove('open');
+  syncCta();
 }
 function closeModal(){
   modal.classList.remove('open');
-  document.body.style.overflow='';
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  syncCta();
 }
 
 buyBtn.addEventListener('click', openModal);
@@ -31,24 +85,23 @@ overlay.addEventListener('click', closeModal);
 closeBtn.addEventListener('click', closeModal);
 closeSuccess.addEventListener('click', closeModal);
 
-document.addEventListener('keydown', e=>{
-  if(e.key==='Escape' && modal.classList.contains('open')) closeModal();
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
 });
 
-qty.addEventListener('change', ()=>{
-  const val = qty.value;
-  totalPrice.textContent = prices[val] || "2 500 ₽";
+qty.addEventListener('change', () => {
+  totalPrice.textContent = prices[qty.value] || "2 500 ₽";
 });
 
-form.addEventListener('submit', (e)=>{
+form.addEventListener('submit', (e) => {
   e.preventDefault();
   const btn = form.querySelector('.submit-btn');
   const originalText = btn.textContent;
   btn.textContent = 'ПЕЧАТАЕМ БИЛЕТ...';
   btn.disabled = true;
   
-  setTimeout(()=>{
-    form.style.display='none';
+  setTimeout(() => {
+    form.style.display = 'none';
     success.classList.add('open');
     btn.textContent = originalText;
     btn.disabled = false;
@@ -56,10 +109,37 @@ form.addEventListener('submit', (e)=>{
     // конфетти эффект в стиле штампа
     const stamp = document.querySelector('.success-stamp');
     stamp.animate([
-      {transform:'rotate(-6deg) scale(0.8)', opacity:0},
-      {transform:'rotate(-6deg) scale(1.15)', opacity:1},
-      {transform:'rotate(-6deg) scale(1)', opacity:1}
-    ], {duration:400, easing:'cubic-bezier(.34,1.56,.64,1)'});
+      {transform: 'rotate(-6deg) scale(0.8)', opacity: 0},
+      {transform: 'rotate(-6deg) scale(1.15)', opacity: 1},
+      {transform: 'rotate(-6deg) scale(1)', opacity: 1}
+    ], {duration: 400, easing: 'cubic-bezier(.34,1.56,.64,1)'});
     
   }, 900);
 });
+
+/* =========================================================
+   КНОПКА «КУПИТЬ БИЛЕТ» НЕ ДОЛЖНА ПРОПАДАТЬ
+   Основная приклеена к низу описания. Если её всё-таки
+   не видно (узкий/низкий экран) — показываем плавающую.
+   ========================================================= */
+function syncCta(){
+  if (!ctaFloat || !buyBtn) return;
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  const r = buyBtn.getBoundingClientRect();
+  const seen = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+  const visible = r.height > 0 && seen >= r.height * 0.6;
+  const show = !visible && !modal.classList.contains('open');
+  ctaFloat.classList.toggle('is-visible', show);
+  ctaFloat.setAttribute('aria-hidden', show ? 'false' : 'true');
+  ctaFloat.tabIndex = show ? 0 : -1;
+}
+
+ctaFloat.addEventListener('click', openModal);
+window.addEventListener('scroll', syncCta, { passive: true });
+window.addEventListener('resize', syncCta);
+if (content) content.addEventListener('scroll', syncCta, { passive: true });
+window.addEventListener('load', syncCta);
+window.addEventListener('orientationchange', syncCta);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncCta);
+setTimeout(syncCta, 300);
+syncCta();
