@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЧЕРНЫЙ ВТОРНИК — ПОСЛЕДНИЙ КОНЦЕРТ | Издательство АСТ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="noise"></div>
+
+<!-- Верхняя служебная строка как на книге -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <span>ИЗДАТЕЛЬСТВО АСТ</span>
+    <span class="dot">•</span>
+    <span>СЕРИЯ «ЛЕГЕНДЫ РУССКОГО РОКА»</span>
+    <span class="dot">•</span>
+    <span>КНИГА №7</span>
+  </div>
+</div>
+
+<main class="wrapper">
+  <div class="book">
+    <div class="book-frame-outer">
+      <div class="book-frame-inner">
+        
+        <!-- ФОТО -->
+        <div class="photo-wrap">
+          <div class="photo">
+            <img src="hero.jpg" alt="Рок концерт">
+            <div class="photo-overlay"></div>
+          </div>
+          <div class="photo-meta">
+            <span>Илл. 1 — Живой звук, 2024. Фотоархив группы.</span>
+            <span>ТИРАЖ ОГРАНИЧЕН</span>
+          </div>
+        </div>
+
+        <!-- КОНТЕНТ -->
+        <div class="content">
+          <div class="overline">ГРУППА «ЧЁРНЫЙ ВТОРНИК» ПРЕДСТАВЛЯЕТ:</div>
+          
+          <h1 class="title">
+            <span class="title-small">ЮБИЛЕЙНЫЙ</span>
+            ПОСЛЕДНИЙ<br>КОНЦЕРТ
+          </h1>
+
+          <div class="divider">— ✦ —</div>
+
+          <div class="subtitle">20 лет на сцене. Одна ночь. Живой звук без фонограммы.</div>
+
+          <div class="annotation">
+            <p>Впервые за десять лет «Чёрный Вторник» соберёт полный состав на одной сцене. Как в старых книгах издательства АСТ — с предисловием, кульминацией и эпилогом, только вместо глав — ваши любимые песни.</p>
+            <p>Это не просто концерт. Это последняя глава. Альбом «Молот», который вы заслушали до дыр, прозвучит целиком — от первой до последней ноты. Плюс все хиты, которые стали саундтреком целого поколения.</p>
+          </div>
+
+          <div class="specs">
+            <div class="spec">
+              <span class="spec-label">ДАТА</span>
+              <span class="spec-value">29 НОЯБРЯ 2026 / СУББОТА</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">ВРЕМЯ</span>
+              <span class="spec-value">19:00 / СБОР ГОСТЕЙ 18:00</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">МЕСТО</span>
+              <span class="spec-value">КЛУБ «16 ТОНН», МОСКВА</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">ВОЗРАСТ</span>
+              <span class="spec-value">16+ / ЖИВОЙ ЗВУК</span>
+            </div>
+          </div>
+
+          <div class="ticket-block">
+            <div class="price-tag">
+              <div class="price-label">СТОИМОСТЬ ИЗДАНИЯ:</div>
+              <div class="price">от 2 500 ₽</div>
+              <div class="price-note">осталось 214 экз. / 1500 мест</div>
+            </div>
+
+            <button class="buy-btn" id="buyBtn">
+              <span class="stamp-border"></span>
+              <span class="buy-btn-text">КУПИТЬ БИЛЕТ</span>
+              <span class="buy-btn-sub">В КАССЕ ИЗДАТЕЛЬСТВА</span>
+            </button>
+
+            <div class="small-note">Билет — как экслибрис. Именной. Возврату не подлежит, как первое издание.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Нижний колонтитул как в книге -->
+    <div class="colophon">
+      <div class="colophon-left">
+        <div class="ast-logo">АСТ</div>
+        <div class="colophon-text">
+          <p><strong>КОНЦЕРТНОЕ ИЗДАНИЕ</strong><br>
+          Организатор: ИП Воронцов А.В.<br>
+          ОГРНИП 324774600123456<br>
+          Адрес площадки: г. Москва, ул. Пресненский Вал, д. 6, стр. 1<br>
+          Клуб «16 Тонн»</p>
+        </div>
+      </div>
+      <div class="colophon-right">
+        <p>ISBN 978-5-17-167432-1 (концерт)<br>
+        УДК 785.16<br>
+        ББК 85.364<br><br>
+        По вопросам аккредитации и оптовых закупок билетов:<br>
+        <a href="tel:+74951234567">+7 (495) 123-45-67</a><br>
+        <a href="mailto:rock@ast-concert.ru">rock@ast-concert.ru</a><br>
+        @blacktuesday.rock</p>
+        <p class="print">Отпечатано в типографии «Живой Звук».<br>Москва. 2026. Тираж 1500 экз.</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Модалка покупки -->
+<div class="modal" id="modal">
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal-window">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-header">
+      <div class="modal-overline">ИЗДАТЕЛЬСТВО АСТ • КАССА</div>
+      <h2>ОФОРМЛЕНИЕ БИЛЕТА</h2>
+      <div class="modal-book-title">«ЧЁРНЫЙ ВТОРНИК» — ПОСЛЕДНИЙ КОНЦЕРТ</div>
+    </div>
+    
+    <form class="ticket-form" id="ticketForm">
+      <div class="form-row">
+        <label>ФАМИЛИЯ И ИМЯ <span>*</span></label>
+        <input type="text" required placeholder="Как в паспорте, для именного экслибриса">
+      </div>
+      <div class="form-row">
+        <label>E-MAIL <span>*</span></label>
+        <input type="email" required placeholder="туда придёт билет-книга">
+      </div>
+      <div class="form-row two-col">
+        <div>
+          <label>КОЛИЧЕСТВО</label>
+          <select id="qty">
+            <option>1 билет — 2 500 ₽</option>
+            <option>2 билета — 5 000 ₽</option>
+            <option>3 билета — 7 200 ₽ (-4%)</option>
+            <option>4 билета — 9 000 ₽ (-10%)</option>
+          </select>
+        </div>
+        <div>
+          <label>РЯД / ЗОНА</label>
+          <select>
+            <option>Танцпол</option>
+            <option>VIP — столик</option>
+            <option>Балкон</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-total">
+        <span>ИТОГО:</span>
+        <strong id="totalPrice">2 500 ₽</strong>
+      </div>
+      <button type="submit" class="submit-btn">ОПЛАТИТЬ И ПОЛУЧИТЬ БИЛЕТ →</button>
+      <div class="form-footnote">Нажимая, вы соглашаетесь с офертой. Билет придёт на почту в виде PDF, стилизованного под страницу из книги АСТ. Распечатывать не обязательно.</div>
+    </form>
+
+    <div class="success" id="success">
+      <div class="success-stamp">ОПЛАЧЕНО</div>
+      <h3>БИЛЕТ ЗАБРОНИРОВАН</h3>
+      <p>Мы отправили вам письмо. Проверьте почту — там ваш именной экслибрис-билет. До встречи на последней главе.</p>
+      <p class="success-small">Билет № AST-2026-0742 / Место в зале будет указано при входе</p>
+      <button class="submit-btn" id="closeSuccess">ЗАКРЫТЬ</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
