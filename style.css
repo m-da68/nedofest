@@ -1,6 +1,7 @@
 :root{
   --paper: #F5F0E1;
   --paper-dark: #EAE1CB;
+  --paper-mid: #F9F5E9;
   --ink: #121212;
   --ink-light: #5A5248;
   --red: #C1272D;
@@ -8,16 +9,20 @@
   --border: #121212;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+html{height:100%;overflow:hidden}
 body{
+  height:100vh;
+  height:100dvh;
+  width:100%;
+  overflow:hidden;
   background: var(--paper-dark);
   color: var(--ink);
   font-family: 'PT Serif', serif;
-  min-height:100vh;
-  position:relative;
+  display:flex;
+  flex-direction:column;
   -webkit-font-smoothing: antialiased;
-  overflow-x:hidden;
+  overscroll-behavior:none;
 }
 
 .noise{
@@ -29,255 +34,365 @@ body{
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* TOP BAR */
+/* TOP BAR — как наборная строка на обложке */
 .top-bar{
+  flex:0 0 auto;
   border-bottom:1px solid var(--border);
   background: var(--paper);
   font-family: 'PT Sans', sans-serif;
-  font-size:11px;
+  font-size:clamp(8px, 0.9vh, 11px);
   letter-spacing:0.18em;
   text-transform:uppercase;
-  padding:10px 0;
-  position:sticky;
-  top:0;
-  z-index:10;
+  padding: 6px 0 6px;
+  z-index:5;
+  line-height:1;
 }
 .top-bar-inner{
-  max-width:800px;
+  max-width:100%;
   margin:0 auto;
-  padding:0 24px;
+  padding:0 16px;
   display:flex;
-  gap:12px;
+  gap:10px;
   justify-content:center;
+  align-items:center;
   flex-wrap:wrap;
   opacity:0.8;
+  text-align:center;
 }
 .dot{opacity:0.4}
 
-/* WRAPPER */
+/* WRAPPER — на всё окно */
 .wrapper{
-  max-width:860px;
-  margin:0 auto;
-  padding:32px 20px 60px;
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  height:100%;
+  max-width:none;
+  margin:0;
+  padding: 0.8vh 0.8vw;
+  overflow:hidden;
+  background: var(--paper-dark);
 }
 
+/* BOOK — сама обложка на всё окно */
 .book{
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  height:100%;
   background: var(--paper);
-  box-shadow: 0 1px 0 #cbbfa7, 0 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.05) inset;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08) inset, 0 8px 32px rgba(0,0,0,0.12);
+  overflow:hidden;
   position:relative;
+  padding:4px;
 }
 
 .book-frame-outer{
-  border: 2.5px solid var(--border);
-  margin:14px;
-  padding:8px;
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  border: 2px solid var(--border);
+  margin: 0;
+  padding: 4px;
+  overflow:hidden;
+  background: var(--paper);
 }
 .book-frame-inner{
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
   border: 1px solid var(--border);
-  padding:0 0 40px;
+  overflow:hidden;
+  position:relative;
+}
+/* декоративные уголки как на книгах АСТ */
+.book-frame-inner::before,
+.book-frame-inner::after{
+  content:'';
+  position:absolute;
+  width:18px;height:18px;
+  border-color: var(--border);
+  border-style:solid;
+  pointer-events:none;
+  opacity:0.35;
+  z-index:2;
+}
+.book-frame-inner::before{
+  top:6px;left:6px;
+  border-width:1px 0 0 1px;
+}
+.book-frame-inner::after{
+  top:6px;right:6px;
+  border-width:1px 1px 0 0;
 }
 
-/* PHOTO */
+/* PHOTO — сверху, фиксированная высота от vh */
 .photo-wrap{
+  flex:0 0 auto;
+  display:flex;
+  flex-direction:column;
+  height: clamp(132px, 34vh, 360px);
+  min-height:120px;
   border-bottom:1.5px solid var(--border);
+  background:#000;
+  overflow:hidden;
 }
 .photo{
+  flex:1;
+  min-height:0;
   position:relative;
-  aspect-ratio: 16/9;
   overflow:hidden;
-  background:#000;
+  background:#111;
 }
 .photo img{
   width:100%;
   height:100%;
   object-fit:cover;
+  object-position:center 38%;
   display:block;
-  filter: contrast(1.15) grayscale(0.1);
-  mix-blend-mode: normal;
+  filter: contrast(1.12) saturate(0.85) sepia(0.06);
 }
 .photo-overlay{
   position:absolute;
   inset:0;
-  background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.35) 100%);
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, transparent 32%, transparent 70%, rgba(0,0,0,0.28) 100%),
+    radial-gradient(ellipse at center, transparent 62%, rgba(0,0,0,0.35) 100%);
+  pointer-events:none;
+}
+.photo-vignette{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(255,255,255,0.08);
   pointer-events:none;
 }
 .photo-meta{
+  flex:0 0 auto;
   display:flex;
   justify-content:space-between;
+  align-items:center;
+  gap:12px;
   font-family:'PT Sans', sans-serif;
-  font-size:9.5px;
-  letter-spacing:0.12em;
+  font-size:clamp(7px, 0.9vh, 9.5px);
+  letter-spacing:0.11em;
   text-transform:uppercase;
-  padding:8px 18px;
+  padding: 5px 12px;
   border-top:1px solid var(--border);
-  background: #F9F5E9;
+  background: var(--paper-mid);
   color: var(--ink-light);
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
 }
+.photo-meta span{overflow:hidden;text-overflow:ellipsis}
+.photo-meta span:last-child{flex-shrink:0}
 
-/* CONTENT */
+/* CONTENT — описание + кнопка, занимает всё оставшееся место, без скролла */
 .content{
-  padding:36px 48px 10px;
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  gap: clamp(4px, 0.9vh, 10px);
+  padding: clamp(8px, 1.6vh, 22px) clamp(14px, 2.6vw, 42px) clamp(6px, 1vh, 12px);
   text-align:center;
+  overflow:hidden;
 }
 
 .overline{
+  flex:0 0 auto;
   font-family:'PT Sans', sans-serif;
-  font-size:11px;
+  font-size:clamp(7.5px, 1.05vh, 10.5px);
   letter-spacing:0.28em;
   text-transform:uppercase;
   color: var(--ink-light);
-  margin-bottom:18px;
   font-weight:700;
+  line-height:1;
 }
 
 .title{
+  flex:0 0 auto;
   font-family:'Cormorant Garamond', 'EB Garamond', serif;
   font-weight:700;
-  line-height:0.9;
+  line-height:0.88;
   letter-spacing:-0.02em;
   text-transform:uppercase;
-  font-size: clamp(42px, 8vw, 78px);
-  margin:0 auto;
+  font-size: clamp(26px, 5.2vh, 62px);
+  margin:0;
 }
 .title-small{
   display:block;
   font-size:0.28em;
-  letter-spacing:0.4em;
+  letter-spacing:0.38em;
   font-weight:400;
-  margin-bottom:12px;
+  margin-bottom:4px;
   font-family:'PT Sans', sans-serif;
   color: var(--ink-light);
+  line-height:1;
 }
 
 .divider{
-  margin:22px 0 18px;
-  font-size:18px;
+  flex:0 0 auto;
+  font-size: clamp(10px, 1.5vh, 16px);
   letter-spacing:0.3em;
-  opacity:0.6;
+  opacity:0.55;
+  line-height:1;
 }
 
 .subtitle{
+  flex:0 0 auto;
   font-family:'EB Garamond', serif;
   font-style:italic;
-  font-size:20px;
-  line-height:1.35;
-  max-width:520px;
-  margin:0 auto 32px;
+  font-size: clamp(11px, 1.75vh, 18px);
+  line-height:1.3;
+  max-width:560px;
   color: var(--ink);
 }
 
 .annotation{
+  flex:0 1 auto;
+  min-height:0;
+  overflow:hidden;
   text-align:left;
-  max-width:580px;
-  margin:0 auto 34px;
-  font-size:16.5px;
-  line-height:1.72;
-  column-gap: 0;
+  max-width:600px;
+  width:100%;
+  font-size: clamp(10px, 1.45vh, 14.5px);
+  line-height:1.55;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
 }
-.annotation p + p{
-  margin-top:14px;
-  text-indent: 1.4em;
+.annotation p{
+  margin:0;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.annotation p:first-child{
+  -webkit-line-clamp: 4;
+}
+.annotation p.p-second{
+  -webkit-line-clamp: 3;
 }
 .annotation p:first-child::first-letter{
   font-family:'Cormorant Garamond', serif;
   float:left;
-  font-size:52px;
+  font-size:2.2em;
   line-height:0.8;
-  padding:6px 10px 0 0;
+  padding:4px 7px 0 0;
   font-weight:700;
 }
 
-/* SPECS */
+/* SPECS — сетка */
 .specs{
+  flex:0 0 auto;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:1px;
   background: var(--border);
-  border:1.5px solid var(--border);
-  max-width:580px;
-  margin:0 auto 36px;
+  border:1px solid var(--border);
+  width:100%;
+  max-width:600px;
   text-align:left;
+  overflow:hidden;
 }
 .spec{
   background: var(--paper);
-  padding:12px 16px;
+  padding: clamp(6px, 0.9vh, 10px) clamp(8px, 1vw, 14px);
   display:flex;
   flex-direction:column;
-  gap:3px;
+  gap:2px;
+  min-width:0;
 }
 .spec-label{
   font-family:'PT Sans', sans-serif;
-  font-size:9px;
-  letter-spacing:0.18em;
+  font-size: clamp(7px, 0.9vh, 9px);
+  letter-spacing:0.16em;
   text-transform:uppercase;
   opacity:0.6;
   font-weight:700;
+  line-height:1;
 }
 .spec-value{
   font-family:'PT Sans', sans-serif;
-  font-size:13px;
+  font-size: clamp(9px, 1.15vh, 12.5px);
   font-weight:700;
   letter-spacing:0.04em;
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 /* TICKET BLOCK */
 .ticket-block{
-  max-width:580px;
-  margin:0 auto;
+  flex:0 0 auto;
+  width:100%;
+  max-width:600px;
   border-top:1px solid var(--border);
-  padding-top:28px;
+  padding-top: clamp(6px, 1vh, 14px);
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:18px;
+  gap: clamp(4px, 0.8vh, 10px);
 }
 
 .price-tag{
   text-align:center;
+  line-height:1;
 }
 .price-label{
   font-family:'PT Sans', sans-serif;
-  font-size:10px;
-  letter-spacing:0.2em;
+  font-size:clamp(7.5px, 0.95vh, 10px);
+  letter-spacing:0.18em;
   text-transform:uppercase;
   opacity:0.6;
 }
 .price{
   font-family:'Cormorant Garamond', serif;
-  font-size:36px;
+  font-size: clamp(20px, 3vh, 32px);
   font-weight:700;
   line-height:1;
-  margin:6px 0 4px;
+  margin: 3px 0 2px;
 }
 .price-note{
   font-family:'PT Sans', sans-serif;
-  font-size:11px;
+  font-size:clamp(9px, 1vh, 11px);
   letter-spacing:0.05em;
   color: var(--red);
   font-weight:700;
 }
 
-/* BUY BUTTON - STAMP */
+/* BUY BUTTON - штамп как на книгах */
 .buy-btn{
   position:relative;
   background: transparent;
   border:none;
   cursor:pointer;
-  padding:18px 44px 14px;
-  transform: rotate(-1.2deg);
-  transition: transform 0.2s ease;
-  margin:8px 0;
+  padding: clamp(10px, 1.5vh, 16px) clamp(22px, 3vw, 40px) clamp(7px, 1vh, 11px);
+  transform: rotate(-1.1deg);
+  transition: transform 0.2s ease, filter 0.2s;
+  margin: 2px 0;
+  touch-action:manipulation;
 }
 .buy-btn:hover{
   transform: rotate(0deg) scale(1.02);
 }
 .buy-btn:active{
-  transform: rotate(0deg) scale(0.98);
+  transform: rotate(0deg) scale(0.97);
 }
 .stamp-border{
   position:absolute;
   inset:0;
-  border:3px solid var(--red);
+  border:2.5px solid var(--red);
   border-radius:2px;
   background: rgba(193,39,45,0.06);
   box-shadow: 0 0 0 1px var(--red) inset;
@@ -287,7 +402,7 @@ body{
   position:absolute;
   inset:3px;
   border:1px dashed var(--red);
-  opacity:0.6;
+  opacity:0.55;
   border-radius:1px;
 }
 .buy-btn-text{
@@ -295,8 +410,8 @@ body{
   display:block;
   font-family:'PT Sans', sans-serif;
   font-weight:800;
-  font-size:22px;
-  letter-spacing:0.12em;
+  font-size: clamp(14px, 2vh, 20px);
+  letter-spacing:0.11em;
   color: var(--red);
   line-height:1;
 }
@@ -304,55 +419,62 @@ body{
   position:relative;
   display:block;
   font-family:'PT Sans', sans-serif;
-  font-size:9px;
-  letter-spacing:0.22em;
+  font-size:clamp(7px, 0.95vh, 9px);
+  letter-spacing:0.2em;
   text-transform:uppercase;
   color: var(--red);
-  margin-top:5px;
+  margin-top:3px;
   opacity:0.9;
+  line-height:1;
 }
 
 .small-note{
   font-family:'PT Serif', serif;
   font-style:italic;
-  font-size:12px;
-  opacity:0.6;
-  max-width:360px;
-  line-height:1.4;
+  font-size:clamp(8px, 1vh, 11px);
+  opacity:0.58;
+  max-width:380px;
+  line-height:1.35;
 }
 
-/* COLOPHON - like book imprint */
+/* COLOPHON — контакты как выходные данные книги */
 .colophon{
+  flex:0 0 auto;
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:24px;
-  padding:22px 18px 18px;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(10px, 1.2vw, 20px);
+  padding: clamp(6px, 1vh, 12px) clamp(10px, 1.4vw, 16px) clamp(6px, 1vh, 10px);
   border-top:1.5px solid var(--border);
-  background: #F9F5E9;
+  background: var(--paper-mid);
   font-family:'PT Sans', sans-serif;
-  font-size:10.5px;
-  line-height:1.5;
+  font-size:clamp(8px, 1.05vh, 10.5px);
+  line-height:1.45;
   color: var(--ink-light);
   text-align:left;
+  overflow:hidden;
 }
 .colophon-left{
   display:flex;
-  gap:14px;
+  gap:10px;
+  min-width:0;
 }
 .ast-logo{
-  width:44px;
-  height:44px;
+  width: clamp(32px, 3.5vh, 42px);
+  height: clamp(32px, 3.5vh, 42px);
   background: var(--red);
   color:white;
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:800;
-  font-size:16px;
+  font-size: clamp(12px, 1.6vh, 15px);
   letter-spacing:0.06em;
   flex-shrink:0;
   line-height:1;
 }
+.colophon-text{ min-width:0; overflow:hidden }
+.colophon-text p{ overflow:hidden; text-overflow:ellipsis }
+.colophon-right{ min-width:0; overflow:hidden }
 .colophon-right a{
   color: var(--ink);
   text-decoration:none;
@@ -360,12 +482,12 @@ body{
 }
 .colophon-right a:hover{color:var(--red)}
 .print{
-  margin-top:12px;
+  margin-top:6px;
   font-style:italic;
-  opacity:0.8;
+  opacity:0.75;
 }
 
-/* MODAL */
+/* MODAL — поверх обложки */
 .modal{
   position:fixed;
   inset:0;
@@ -373,7 +495,7 @@ body{
   z-index:100;
   align-items:center;
   justify-content:center;
-  padding:20px;
+  padding:16px;
 }
 .modal.open{display:flex}
 .modal-overlay{
@@ -388,76 +510,77 @@ body{
   border:2px solid var(--border);
   max-width:520px;
   width:100%;
-  max-height:90vh;
+  max-height: min(90dvh, 720px);
   overflow:auto;
-  padding:28px 28px 24px;
+  padding:22px 22px 18px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  animation: bookIn 0.35s ease;
+  animation: bookIn 0.32s ease;
 }
 @keyframes bookIn{
-  from{transform: translateY(18px) scale(0.98); opacity:0}
+  from{transform: translateY(14px) scale(0.98); opacity:0}
   to{transform: translateY(0) scale(1); opacity:1}
 }
 .modal-close{
   position:absolute;
-  top:10px;
-  right:12px;
+  top:8px;
+  right:10px;
   background:none;
   border:none;
   font-size:18px;
   cursor:pointer;
   width:32px;
   height:32px;
+  line-height:1;
 }
 .modal-header{
   text-align:center;
   border-bottom:1.5px solid var(--border);
-  padding-bottom:18px;
-  margin-bottom:22px;
+  padding-bottom:14px;
+  margin-bottom:18px;
 }
 .modal-overline{
   font-family:'PT Sans', sans-serif;
   font-size:10px;
-  letter-spacing:0.25em;
+  letter-spacing:0.22em;
   text-transform:uppercase;
   opacity:0.6;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 .modal-header h2{
   font-family:'Cormorant Garamond', serif;
-  font-size:30px;
+  font-size:26px;
   letter-spacing:0.04em;
   line-height:1;
 }
 .modal-book-title{
   font-family:'PT Sans', sans-serif;
   font-size:11px;
-  letter-spacing:0.12em;
+  letter-spacing:0.11em;
   text-transform:uppercase;
-  margin-top:8px;
+  margin-top:6px;
   opacity:0.7;
 }
 
 .ticket-form{
   display:flex;
   flex-direction:column;
-  gap:16px;
+  gap:14px;
 }
 .form-row{
   display:flex;
   flex-direction:column;
-  gap:6px;
+  gap:5px;
   text-align:left;
 }
 .form-row.two-col{
   flex-direction:row;
-  gap:14px;
+  gap:12px;
 }
-.form-row.two-col > div{flex:1;display:flex;flex-direction:column;gap:6px}
+.form-row.two-col > div{flex:1;display:flex;flex-direction:column;gap:5px;min-width:0}
 .form-row label{
   font-family:'PT Sans', sans-serif;
   font-size:10px;
-  letter-spacing:0.18em;
+  letter-spacing:0.16em;
   text-transform:uppercase;
   font-weight:700;
 }
@@ -465,10 +588,11 @@ body{
 .form-row input, .form-row select{
   border:1.5px solid var(--border);
   background:#fffcf3;
-  padding:12px 14px;
+  padding:11px 13px;
   font-family:'PT Serif', serif;
   font-size:14px;
   outline:none;
+  width:100%;
 }
 .form-row input:focus, .form-row select:focus{
   border-color: var(--red);
@@ -479,24 +603,24 @@ body{
   align-items:center;
   border-top:1px dashed var(--border);
   border-bottom:1px dashed var(--border);
-  padding:12px 0;
+  padding:10px 0;
   font-family:'PT Sans', sans-serif;
   font-size:13px;
-  letter-spacing:0.1em;
+  letter-spacing:0.08em;
   text-transform:uppercase;
 }
 .form-total strong{
-  font-size:20px;
+  font-size:19px;
   font-family:'Cormorant Garamond', serif;
 }
 .submit-btn{
   background: var(--ink);
   color: var(--paper);
   border:1.5px solid var(--border);
-  padding:14px 18px;
+  padding:13px 16px;
   font-family:'PT Sans', sans-serif;
   font-weight:700;
-  letter-spacing:0.12em;
+  letter-spacing:0.11em;
   text-transform:uppercase;
   font-size:13px;
   cursor:pointer;
@@ -518,50 +642,159 @@ body{
 .success{
   display:none;
   text-align:center;
-  padding:20px 0 10px;
+  padding:18px 0 6px;
 }
 .success.open{display:block}
 .success-stamp{
   display:inline-block;
-  border:3px solid var(--red);
+  border:2.5px solid var(--red);
   color:var(--red);
   font-family:'PT Sans', sans-serif;
   font-weight:800;
-  letter-spacing:0.18em;
-  padding:8px 18px;
+  letter-spacing:0.16em;
+  padding:7px 16px;
   transform: rotate(-6deg);
-  margin-bottom:18px;
-  font-size:18px;
+  margin-bottom:16px;
+  font-size:17px;
 }
 .success h3{
   font-family:'Cormorant Garamond', serif;
-  font-size:26px;
-  margin-bottom:10px;
+  font-size:24px;
+  margin-bottom:8px;
 }
 .success p{
   font-size:14px;
   line-height:1.5;
   opacity:0.8;
   max-width:360px;
-  margin:0 auto 14px;
+  margin:0 auto 12px;
 }
 .success-small{
   font-family:'PT Sans', sans-serif;
   font-size:10px !important;
-  letter-spacing:0.08em;
+  letter-spacing:0.07em;
   text-transform:uppercase;
   opacity:0.6 !important;
 }
 
-/* RESPONSIVE */
-@media(max-width:640px){
-  .wrapper{padding:16px 12px 30px}
-  .book-frame-outer{margin:8px;padding:5px}
-  .content{padding:26px 20px 10px}
-  .specs{grid-template-columns:1fr}
-  .colophon{grid-template-columns:1fr;gap:16px}
-  .form-row.two-col{flex-direction:column}
-  .top-bar-inner{font-size:9px;gap:8px}
-  .photo-meta{font-size:8px}
-  .annotation{font-size:15px}
+/* ========== АДАПТИВНОСТЬ БЕЗ СКРОЛЛА ========== */
+
+/* Узкие экраны — телефон портрет */
+@media (max-width: 640px){
+  .wrapper{padding: 0.6vh 0.6vw;}
+  .book{padding:2px}
+  .book-frame-outer{padding:3px;border-width:1.8px}
+  .photo-wrap{height: clamp(128px, 30vh, 220px);}
+  .photo-meta{font-size:7.5px;padding:4px 8px;gap:6px}
+  .photo-meta .tirazh{display:none}
+  .content{padding: 8px 14px 6px;gap:6px}
+  .specs{grid-template-columns:1fr 1fr;gap:1px}
+  .spec{padding:7px 10px}
+  .colophon{grid-template-columns:1fr;gap:8px;padding:8px 10px}
+  .colophon-left{ gap:8px }
+  .colophon-right{ border-top:1px dashed rgba(0,0,0,0.15); padding-top:6px }
+  .print{display:none}
+  .top-bar-inner{font-size:8.5px;gap:6px;padding:0 10px}
 }
+
+/* Очень узкие — 360 и меньше */
+@media (max-width: 380px){
+  .title{font-size: clamp(24px, 5.8vw, 30px);}
+  .subtitle{font-size: clamp(11px, 3.4vw, 13px);}
+  .annotation{font-size:11px; line-height:1.45}
+  .spec-value{font-size:10px}
+  .buy-btn{padding:10px 18px 8px}
+}
+
+/* Короткие по высоте — ноутбуки, сплит-скрин */
+@media (max-height: 740px){
+  .top-bar{padding:4px 0}
+  .photo-wrap{height: clamp(118px, 28vh, 260px);}
+  .content{gap:5px;padding-top:8px}
+  .title{font-size: clamp(24px, 4.6vh, 48px);}
+  .subtitle{font-size: clamp(10px, 1.6vh, 15px);}
+  .annotation{font-size: clamp(9.5px, 1.35vh, 13px); line-height:1.45}
+  .annotation p:first-child{-webkit-line-clamp:3}
+  .annotation p.p-second{-webkit-line-clamp:2}
+  .spec{padding:6px 10px}
+  .ticket-block{padding-top:6px;gap:5px}
+  .price{font-size: clamp(18px, 2.6vh, 26px);}
+  .colophon{padding:6px 10px;font-size:9px}
+  .colophon .print{display:none}
+}
+
+@media (max-height: 660px){
+  .photo-wrap{height: clamp(110px, 26vh, 200px);}
+  .annotation p.p-second{display:none}
+  .annotation p:first-child{-webkit-line-clamp:3}
+  .divider{font-size:12px}
+  .small-note{display:none}
+  .buy-btn{padding:10px 22px 7px}
+  .colophon{font-size:8.5px; line-height:1.35}
+  .colophon-right br{display:none}
+}
+
+@media (max-height: 580px){
+  .photo-wrap{height: 118px;}
+  .annotation{display:none !important}
+  .subtitle{font-size:11px}
+  .title{font-size:22px}
+  .top-bar{display:none}
+  .colophon{padding:5px 8px;gap:6px}
+  .price-label{font-size:8px}
+  .price{font-size:18px}
+}
+
+/* Высокие экраны — даём больше воздуха */
+@media (min-height: 900px) and (min-width: 900px){
+  .wrapper{padding:1.2vh 1.2vw}
+  .book{padding:6px}
+  .book-frame-outer{padding:6px}
+  .photo-wrap{height: 380px}
+  .content{padding: 20px 48px 12px;gap:12px}
+  .title{font-size: 62px}
+}
+
+/* Широкие экраны — центрируем контент, но фон на всё окно */
+@media (min-width: 1100px){
+  .wrapper{
+    align-items:stretch;
+  }
+  .book{
+    max-width:100%;
+  }
+  .content{
+    padding-left: clamp(32px, 6vw, 120px);
+    padding-right: clamp(32px, 6vw, 120px);
+  }
+  .photo img{object-position:center 30%}
+}
+
+/* Ландшафт на телефоне — фото слева, контент справа, но сохраняем требование сверху фотка -> делаем компактнее */
+@media (max-height: 500px) and (orientation: landscape){
+  .photo-wrap{height: 132px; flex:0 0 132px}
+  .photo-meta{padding:3px 8px;font-size:7px}
+  .content{flex-direction:column;justify-content:center;gap:4px;padding:6px 16px}
+  .title{font-size:22px}
+  .title-small{margin-bottom:2px}
+  .subtitle{display:none}
+  .annotation{display:none}
+  .specs{max-width:420px}
+  .ticket-block{flex-direction:row;align-items:center;gap:10px;border-top:none;padding-top:4px}
+  .price-tag{text-align:left}
+  .small-note{display:none}
+  .colophon{grid-template-columns:1fr 1fr; padding:4px 10px}
+  .colophon .print{display:none}
+  .top-bar{padding:3px 0;font-size:8px}
+}
+
+/* Фикс для модалки на очень маленьких высотах */
+@media (max-height: 600px){
+  .modal-window{max-height:95dvh;padding:16px}
+  .modal-header{padding-bottom:10px;margin-bottom:12px}
+  .ticket-form{gap:10px}
+}
+
+/* Убираем скроллбар у всего */
+*::-webkit-scrollbar{display:none}
+*{scrollbar-width:none;-ms-overflow-style:none}
