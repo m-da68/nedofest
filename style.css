@@ -343,7 +343,7 @@ body{
    блок с билетом приклеен к низу и всегда на виду */
 .content{
   flex:1;
-  min-height:0;
+  min-height: 360px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
@@ -682,7 +682,7 @@ body{
 .colophon{
   flex:0 0 auto;
   display:grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: clamp(10px, 1.2vw, 20px);
   padding: clamp(6px, 1vh, 12px) clamp(10px, 1.4vw, 16px) clamp(6px, 1vh, 10px);
   border-top:1.5px solid var(--border);
@@ -696,9 +696,9 @@ body{
   transition: background-color .35s ease, border-color .35s ease;
 }
 .colophon-left{
+  width: 200px;
   display:flex;
   gap:10px;
-  min-width:0;
 }
 .ast-logo{
   width: clamp(32px, 3.5vh, 42px);
@@ -722,6 +722,10 @@ body{
   font-weight:700;
   letter-spacing:0.08em;
   box-shadow:1.5px 1.5px 0 var(--block-shadow);
+}
+.colophon-right {
+  width: 100%;
+  min-width: 0;
 }
 .colophon-right{ min-width:0; overflow:hidden }
 .colophon-right a{
@@ -943,9 +947,9 @@ body{
   .content{padding: 8px 14px 6px;gap:6px}
   .specs{grid-template-columns:1fr 1fr;gap:1px}
   .spec{padding:7px 10px}
-  .colophon{grid-template-columns:1fr;gap:8px;padding:8px 10px}
+  .colophon{grid-template-columns:1fr 1fr;gap:8px;padding:8px 10px}
   .colophon-left{ gap:8px }
-  .colophon-right{ border-top:1px dashed var(--hairline); padding-top:6px }
+  /* .colophon-right{ border-top:1px dashed var(--hairline); padding-top:6px } */
   .print{display:none}
   .top-bar-inner{font-size:8.5px;gap:6px;padding:0 10px}
   .cta-float{right:10px;bottom:10px}

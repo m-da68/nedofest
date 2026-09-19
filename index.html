@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>ЧЕРНЫЙ ВТОРНИК — ПОСЛЕДНИЙ КОНЦЕРТ | Издательство АСТ</title>
+<title>НедоFEST | 26 СЕНТЯБРЯ</title>
 <meta name="theme-color" content="#EAE1CB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#100E0B" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="shortcut icon" href="tsconnect.ico" type="image/x-icon">
 <script>
   // Ставим тему до первой отрисовки, чтобы не было вспышки светлым
   (function(){
@@ -26,11 +27,11 @@
 <!-- Верхняя служебная строка как на обложке АСТ -->
 <div class="top-bar">
   <div class="top-bar-inner">
-    <span class="blk blk-red">ИЗДАТЕЛЬСТВО АСТ</span>
+    <span class="blk blk-red">НедоFEST</span>
     <span class="dot">•</span>
-    <span>СЕРИЯ «ЛЕГЕНДЫ РУССКОГО РОКА»</span>
+    <span>Тамбов ул. Астраханская 2В</span>
     <span class="dot">•</span>
-    <span>КНИГА №7</span>
+    <span>26 сентября</span>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Переключить тему">
       <span class="tg-icon" aria-hidden="true">◐</span>
       <span id="themeLabel">АВТО</span>
@@ -51,41 +52,41 @@
             <div class="photo-vignette"></div>
           </div>
           <div class="photo-meta">
-            <span>Илл. 1 — Живой звук, 2024. Фотоархив группы.</span>
-            <span class="tirazh blk blk-red">ТИРАЖ ОГРАНИЧЕН — 1500 ЭКЗ.</span>
+            <span>Живой звук, 2026. Фотоархив группы</span>
+            <span class="tirazh blk blk-red">ТИРАЖ ОГРАНИЧЕН — 100 БИЛЕТОВ</span>
           </div>
         </div>
 
         <!-- ОПИСАНИЕ + КНОПКА -->
         <div class="content" id="content">
-          <div class="overline"><span class="blk blk-ink">ГРУППА «ЧЁРНЫЙ ВТОРНИК» ПРЕДСТАВЛЯЕТ:</span></div>
+          <div class="overline"><span class="blk blk-ink">ГРУППА «ПОСЛЕДНЯЯ КОНСТРУКЦИЯ» и др. ПРЕДСТАВЛЯЕТ:</span></div>
           
           <h1 class="title">
-            <span class="title-small"><span class="blk blk-gold">ЮБИЛЕЙНЫЙ</span></span>
-            <span class="blk blk-red title-box">ПОСЛЕДНИЙ<br>КОНЦЕРТ</span>
+            <span class="title-small"><span class="blk blk-gold">ПИЛОТНЫЙ КОНЦЕРТ</span></span>
+            <span class="blk blk-red title-box">НедоFEST</span>
           </h1>
 
           <div class="divider" aria-hidden="true">— ✦ —</div>
 
-          <div class="subtitle">20 лет на сцене. Одна ночь. Живой звук без фонограммы.</div>
+          <div class="subtitle">Последняя конструкция, ВЕКК, мечтателиодиноки</div>
 
-          <div class="annotation" id="annotation">
+          <!-- <div class="annotation" id="annotation">
             <p>Впервые за десять лет «Чёрный Вторник» соберёт полный состав на одной сцене. Как в старых книгах издательства АСТ — с предисловием, кульминацией и эпилогом, только вместо глав — ваши любимые песни.</p>
             <p class="p-second">Это не просто концерт. Это последняя глава. Альбом «Молот», который вы заслушали до дыр, прозвучит целиком — от первой до последней ноты. Плюс все хиты, которые стали саундтреком целого поколения.</p>
-          </div>
+          </div> -->
 
           <div class="specs">
             <div class="spec">
               <span class="spec-label blk blk-ink">ДАТА</span>
-              <span class="spec-value">29 НОЯБРЯ 2026 / СУББОТА</span>
+              <span class="spec-value">26 СЕНТЯБРЯ 2026 / СУББОТА</span>
             </div>
             <div class="spec">
               <span class="spec-label blk blk-ink">ВРЕМЯ</span>
-              <span class="spec-value">19:00 / СБОР 18:00</span>
+              <span class="spec-value">19:00</span>
             </div>
             <div class="spec">
               <span class="spec-label blk blk-ink">МЕСТО</span>
-              <span class="spec-value">КЛУБ «16 ТОНН», МОСКВА</span>
+              <span class="spec-value">Тамбов, Астраханская 2В. Между барами Кафедра и Спутник</span>
             </div>
             <div class="spec">
               <span class="spec-label blk blk-ink">ВОЗРАСТ</span>
@@ -95,43 +96,43 @@
 
           <div class="ticket-block">
             <div class="price-tag">
-              <div class="price-label">СТОИМОСТЬ ИЗДАНИЯ:</div>
-              <div class="price"><span class="blk blk-red">от 2 500 ₽</span></div>
-              <div class="price-note">осталось 214 экз. / 1500 мест</div>
+              <div class="price-label">СТОИМОСТЬ БИЛЕТА:</div>
+              <div class="price"><span class="blk blk-red">200 ₽</span></div>
+              <div class="price-note">осталось 23 / 100 мест</div>
             </div>
 
             <button class="buy-btn" id="buyBtn" type="button">
               <span class="stamp-border" aria-hidden="true"></span>
               <span class="buy-btn-text">КУПИТЬ БИЛЕТ</span>
-              <span class="buy-btn-sub">В КАССЕ ИЗДАТЕЛЬСТВА</span>
+              <span class="buy-btn-sub">онлайн</span>
             </button>
 
-            <div class="small-note">Билет — как экслибрис. Именной. Возврату не подлежит, как первое издание.</div>
+            <div class="small-note">Возврату не подлежит</div>
           </div>
         </div>
 
         <!-- КОНТАКТЫ СНИЗУ — как выходные данные книги -->
-        <div class="colophon">
+        <section class="colophon">
           <div class="colophon-left">
-            <div class="ast-logo" aria-hidden="true">АСТ</div>
+            <div class="ast-logo" aria-hidden="true" style="background: url('tsconnect.svg') no-repeat; background-size: cover;"></div>
             <div class="colophon-text">
-              <p><strong class="blk blk-ink">КОНЦЕРТНОЕ ИЗДАНИЕ</strong><br>
-              Организатор: ИП Воронцов А.В.<br>
-              ОГРНИП 324774600123456<br>
-              Адрес площадки: г. Москва, ул. Пресненский Вал, д. 6, стр. 1<br>
-              Клуб «16 Тонн»</p>
+              <p><strong class="blk blk-ink">При поддержке <a href="https://tsconnect.ru" style="text-decoration: 'none'; color: black">TSCONNECT.RU</a></strong><br>
+              Организатор: ИП Гусев Д.М.<br>
+              ИНН 681204545844<br>
+              ОГРНИП 326680000039739<br>
+              <!-- Адрес площадки: г. Москва, ул. Пресненский Вал, д. 6, стр. 1<br> -->
+              <!-- Бар с</p> -->
             </div>
           </div>
-          <div class="colophon-right">
-            <p>ISBN 978-5-17-167432-1 (концерт)<br>
-            УДК 785.16 &nbsp; ББК 85.364<br><br>
-            По вопросам аккредитации и оптовых закупок:<br>
-            <a href="tel:+74951234567">+7 (495) 123-45-67</a><br>
-            <a href="mailto:rock@ast-concert.ru">rock@ast-concert.ru</a><br>
-            @blacktuesday.rock</p>
-            <p class="print">Отпечатано в типографии «Живой Звук». Москва. 2026. Тираж 1500 экз.</p>
+          <div class="colophon-right" style="text-align: right;">
+            <p>Контакты<br></p>
+            <a href="tel:+74951234567">+7 (993) 569-13-26</a><br>
+            <a href="mailto:dmitriy.dimi.gusev@mail.ru">dmitriy.dimi.gusev@mail.ru</a><br>
+            <!-- <a href="mailto:rock@ast-concert.ru">rock@ast-concert.ru</a><br> -->
+            <a href="https://t.me/last_construct">t.me/last_construct</a><br>
+            <!-- <p class="print">Отпечатано в типографии «Живой Звук». Москва. 2026. Тираж 1500 экз.</p> -->
           </div>
-        </div>
+        </section>
 
       </div>
     </div>
@@ -141,7 +142,7 @@
 <!-- Плавающая кнопка-дублёр: появляется, если основная уехала за край экрана -->
 <button class="cta-float" id="ctaFloat" type="button" aria-hidden="true" tabindex="-1">
   <span class="cta-float-label">КУПИТЬ БИЛЕТ</span>
-  <span class="cta-float-price">от 2 500 ₽</span>
+  <span class="cta-float-price">200 ₽</span>
 </button>
 
 <!-- Модалка покупки -->
@@ -150,45 +151,26 @@
   <div class="modal-window" role="dialog" aria-modal="true" aria-label="Оформление билета">
     <button class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
     <div class="modal-header">
-      <div class="modal-overline">ИЗДАТЕЛЬСТВО АСТ • КАССА</div>
+      <div class="modal-overline">ПОСЛЕДНЯЯ КОНСТРУКЦИЯ и ДР.</div>
       <h2>ОФОРМЛЕНИЕ БИЛЕТА</h2>
-      <div class="modal-book-title">«ЧЁРНЫЙ ВТОРНИК» — ПОСЛЕДНИЙ КОНЦЕРТ</div>
+      <div class="modal-book-title">«НедоFEST» — ПИЛОТНЫЙ КОНЦЕРТ</div>
     </div>
     
     <form class="ticket-form" id="ticketForm">
       <div class="form-row">
         <label>ФАМИЛИЯ И ИМЯ <span>*</span></label>
-        <input type="text" required placeholder="Как в паспорте, для именного экслибриса">
+        <input type="text" required placeholder="Как в паспорте">
       </div>
       <div class="form-row">
         <label>E-MAIL <span>*</span></label>
-        <input type="email" required placeholder="туда придёт билет-книга">
-      </div>
-      <div class="form-row two-col">
-        <div>
-          <label>КОЛИЧЕСТВО</label>
-          <select id="qty">
-            <option>1 билет — 2 500 ₽</option>
-            <option>2 билета — 5 000 ₽</option>
-            <option>3 билета — 7 200 ₽ (-4%)</option>
-            <option>4 билета — 9 000 ₽ (-10%)</option>
-          </select>
-        </div>
-        <div>
-          <label>РЯД / ЗОНА</label>
-          <select>
-            <option>Танцпол</option>
-            <option>VIP — столик</option>
-            <option>Балкон</option>
-          </select>
-        </div>
+        <input type="email" required placeholder="Туда придёт билет">
       </div>
       <div class="form-total">
         <span>ИТОГО:</span>
-        <strong id="totalPrice">2 500 ₽</strong>
+        <strong id="totalPrice">200 ₽</strong>
       </div>
       <button type="submit" class="submit-btn">ОПЛАТИТЬ И ПОЛУЧИТЬ БИЛЕТ →</button>
-      <div class="form-footnote">Нажимая, вы соглашаетесь с офертой. Билет придёт на почту в виде PDF, стилизованного под страницу из книги АСТ. Распечатывать не обязательно.</div>
+      <div class="form-footnote">Нажимая, вы соглашаетесь с <span onclick="window.open('https://tsconnect.ru/oferta.pdf','_blank');" style="color: var(--ink); cursor: pointer; font-weight: bold;">офертой</span> и принимаете <span onclick="window.open('https://tsconnect.ru/privacy.pdf','_blank');" style="color: var(--ink); cursor: pointer; font-weight: bold;">пользовательское соглашение</span><br>Билет придёт на почту в формате PDF. Распечатывать не обязательно</div>
     </form>
 
     <div class="success" id="success">

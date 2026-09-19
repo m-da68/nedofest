@@ -25,8 +25,8 @@ const prices = {
    ========================================================= */
 const THEMES = [
   { id: 'auto',  icon: '◐', label: 'АВТО' },
-  { id: 'light', icon: '☀', label: 'СВЕТЛАЯ' },
-  { id: 'dark',  icon: '☾', label: 'ТЁМНАЯ' }
+  { id: 'light', icon: '☀', label: 'ДЕНЬ' },
+  { id: 'dark',  icon: '☾', label: 'НОЧЬ' }
 ];
 const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
 
