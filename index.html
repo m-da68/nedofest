@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?2">
 <link rel="shortcut icon" href="tsconnect.ico" type="image/x-icon">
 <script>
   // Ставим тему до первой отрисовки, чтобы не было вспышки светлым
@@ -52,8 +52,8 @@
             <div class="photo-vignette"></div>
           </div>
           <div class="photo-meta">
-            <span>Живой звук, 2026. Фотоархив группы</span>
-            <span class="tirazh blk blk-red">ТИРАЖ ОГРАНИЧЕН — 100 БИЛЕТОВ</span>
+            <span>Фотоархив группы «ПОСЛЕДНЯЯ КОНСТРУКЦИЯ»</span>
+            <!-- <span class="tirazh blk blk-red">ТИРАЖ ОГРАНИЧЕН — 100 БИЛЕТОВ</span> -->
           </div>
         </div>
 
@@ -86,7 +86,7 @@
             </div>
             <div class="spec spec-wide">
               <span class="spec-label blk blk-ink">МЕСТО</span>
-              <span class="spec-value">Тамбов, Астраханская 2В. Между барами Кафедра и Спутник</span>
+              <span class="spec-value">Тамбов, Астраханская 2В. Площадка баров <span onclick="window.open('https://vk.ru/club237254050','_blank');" style="color: var(--red); cursor: pointer; font-weight: bold;">Кафедра</span> и <span onclick="window.open('https://vk.ru/club226039445','_blank');" style="color: var(--red); cursor: pointer; font-weight: bold;">Спутник</span></span>
             </div>
           </div>
 
@@ -94,7 +94,7 @@
             <div class="price-tag">
               <div class="price-label">СТОИМОСТЬ БИЛЕТА:</div>
               <div class="price"><span class="blk blk-red">200 ₽</span></div>
-              <div class="price-note">осталось 23 / 100 мест</div>
+              <!-- <div class="price-note">осталось 23 / 100 мест</div> -->
             </div>
 
             <button class="buy-btn" id="buyBtn" type="button">
@@ -152,14 +152,14 @@
       <div class="modal-book-title">«НедоFEST» — ПИЛОТНЫЙ КОНЦЕРТ</div>
     </div>
     
-    <form class="ticket-form" id="ticketForm">
+    <form class="ticket-form" id="ticketForm" action="https://xn--d1abb3ahthn.tsconnect.ru/api.php?method=tmpuser" method="post">
       <div class="form-row">
         <label>ФАМИЛИЯ И ИМЯ <span>*</span></label>
-        <input type="text" required placeholder="Как в паспорте">
+        <input type="text" name="name" required placeholder="Как в паспорте">
       </div>
       <div class="form-row">
         <label>E-MAIL <span>*</span></label>
-        <input type="email" required placeholder="Туда придёт билет">
+        <input type="email" name="email" required placeholder="Туда придёт билет">
       </div>
       <div class="form-total">
         <span>ИТОГО:</span>
