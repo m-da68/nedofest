@@ -507,6 +507,15 @@ body{
   overflow:hidden;
   text-overflow:ellipsis;
 }
+/* МЕСТО — во всю ширину сетки, на оба столбца */
+.spec-wide{
+  grid-column:1 / -1;
+}
+.spec-wide .spec-value{
+  white-space:normal;
+  overflow:visible;
+  text-overflow:clip;
+}
 
 /* TICKET BLOCK — приклеен к низу, всегда виден */
 .ticket-block{
