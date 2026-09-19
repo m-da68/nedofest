@@ -93,29 +93,12 @@ qty.addEventListener('change', () => {
   totalPrice.textContent = prices[qty.value] || "2 500 ₽";
 });
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
+form.addEventListener('submit', () => {
   const btn = form.querySelector('.submit-btn');
-  const originalText = btn.textContent;
-  btn.textContent = 'ПЕЧАТАЕМ БИЛЕТ...';
-  btn.disabled = true;
-  
-  setTimeout(() => {
-    form.style.display = 'none';
-    success.classList.add('open');
-    btn.textContent = originalText;
-    btn.disabled = false;
-    
-    // конфетти эффект в стиле штампа
-    const stamp = document.querySelector('.success-stamp');
-    stamp.animate([
-      {transform: 'rotate(-6deg) scale(0.8)', opacity: 0},
-      {transform: 'rotate(-6deg) scale(1.15)', opacity: 1},
-      {transform: 'rotate(-6deg) scale(1)', opacity: 1}
-    ], {duration: 400, easing: 'cubic-bezier(.34,1.56,.64,1)'});
-    
-  }, 900);
-});
+  if (!btn) return;
+
+  btn.textContent = 'ПЕРЕХОДИМ К ОПЛАТЕ...';
+}, 900);
 
 /* =========================================================
    КНОПКА «КУПИТЬ БИЛЕТ» НЕ ДОЛЖНА ПРОПАДАТЬ
